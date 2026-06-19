@@ -1,0 +1,36 @@
+<aside class="fixed-sidebar">
+  <section class="panel sidebar-panel">
+    <div class="sidebar-header">
+      <div>
+        <h2>Intenciones capturadas</h2>
+      </div>
+    </div>
+
+    <div class="intent-scroll">
+      <div class="intent-list">
+        @if (intents.length === 0) {
+          <article class="intent-empty-state">
+            <strong>Sin intenciones capturadas</strong>
+          </article>
+        }
+
+        @for (intent of intents; track intent.title) {
+          <article class="intent-card">
+            <div>
+              <strong>{{ intent.title }}</strong>
+              <p>{{ intent.detail }}</p>
+            </div>
+            <span
+              class="intent-badge"
+              [class.confirmed]="intent.status === 'confirmed'"
+              [class.detected]="intent.status === 'detected'"
+              [class.pending]="intent.status === 'pending'"
+            >
+              {{ getStatusLabel(intent.status) }}
+            </span>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+</aside>

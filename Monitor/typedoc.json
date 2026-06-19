@@ -1,0 +1,29 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "tsconfig": "tsconfig.docs.json",
+  "entryPoints": [
+    "src/app",
+    "src/environments"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "dist/tsdoc",
+  "readme": "README.md",
+  "exclude": [
+    "**/*.spec.ts"
+  ],
+  "excludePrivate": false,
+  "excludeProtected": false,
+  "intentionallyNotExported": [
+    "ConversationViewState",
+    "IvrCallEvent",
+    "IvrCallEventData",
+    "MessageStatus",
+    "ProcessEventParsed",
+    "ProcessEventRaw",
+    "SessionStatus"
+  ],
+  "categorizeByGroup": false,
+  "sort": [
+    "source-order"
+  ]
+}

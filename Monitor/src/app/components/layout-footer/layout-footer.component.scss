@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 0 4px;
+  font-size: 0.95rem;
+  flex-wrap: wrap;
+  color: var(--text-soft);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.footer-logo {
+  width: auto;
+  height: 38px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.footer-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.footer-copy strong {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.footer-copy span {
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-brand {
+    align-items: flex-start;
+  }
+}

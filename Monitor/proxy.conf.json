@@ -1,0 +1,22 @@
+{
+  "/api/conversation-info": {
+    "__redaction_note": "REDACTADO: aqui iria la URL base del backend de conversacion. Se retiro la IP privada y el puerto reales.",
+    "target": "",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/conversation-info": "/ruta-redactada-conversacion"
+    }
+  },
+  "/api/captured-info": {
+    "__redaction_note": "REDACTADO: aqui iria la URL base del backend de entidades capturadas. Se retiraron la IP privada, el puerto y los parametros internos.",
+    "target": "",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/captured-info": "/ruta-redactada-entidades"
+    }
+  }
+}

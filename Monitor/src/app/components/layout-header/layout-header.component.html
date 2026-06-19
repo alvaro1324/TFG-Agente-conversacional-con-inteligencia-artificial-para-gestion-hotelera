@@ -1,0 +1,94 @@
+<header class="site-header">
+  <div class="brand-block">
+    <span class="brand-dot"></span>
+    <div class="brand-copy">
+      <strong>Monitorización de conversacion con Agentes IA</strong>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    @if (showMock) {
+      <button type="button" class="mock-toggle" (click)="loadMockConversation.emit()">
+        Cargar mock
+      </button>
+
+      <button
+        type="button"
+        class="mock-clear"
+        [disabled]="!isMockConversationLoaded"
+        (click)="clearConversation.emit()"
+      >
+        Borrar mock
+      </button>
+    }
+
+    <button type="button" class="runtime-toggle" (click)="toggleRuntimeFilters()">
+      {{ showRuntimeFilters ? 'Ocultar filtros' : 'Añadir números' }}
+    </button>
+
+    <button type="button" class="theme-toggle" (click)="toggleTheme.emit()">
+      Tema {{ theme === 'light' ? 'oscuro' : 'claro' }}
+    </button>
+  </div>
+</header>
+
+@if (showRuntimeFilters) {
+  <section class="runtime-filters">
+    <label class="runtime-field">
+      <span>Número de cliente</span>
+      <div class="runtime-input-row">
+        <input #phoneInput type="text" inputmode="tel" placeholder="Ej. 611245987 o +34611245987" />
+        <button type="button" (click)="submitPhoneNumber(phoneInput.value, phoneInput)">Añadir</button>
+      </div>
+    </label>
+
+    <label class="runtime-field">
+      <span>Número de servicio</span>
+      <div class="runtime-input-row">
+        <!-- REDACTADO: antes se mostraba un numero de servicio real; aqui va un ejemplo sintetico. -->
+        <input #serviceInput type="text" inputmode="numeric" placeholder="Ej. 910000000" />
+        <button type="button" (click)="submitServiceNumber(serviceInput.value, serviceInput)">Añadir</button>
+      </div>
+    </label>
+
+    <button type="button" class="runtime-reset" (click)="resetRuntimeFilters.emit()">
+      Restablecer filtros temporales
+    </button>
+
+    <div class="runtime-chip-group">
+      <span class="runtime-group-label">Clientes</span>
+      <div class="runtime-chips">
+        @for (phoneNumber of defaultPhoneNumbers; track phoneNumber) {
+          <span class="runtime-chip default">{{ phoneNumber }}</span>
+        }
+        @for (phoneNumber of runtimePhoneNumbers; track phoneNumber) {
+          <button type="button" class="runtime-chip removable" (click)="removePhoneNumber.emit(phoneNumber)">
+            <span>{{ phoneNumber }}</span>
+            <span class="chip-remove">×</span>
+          </button>
+        }
+        @if (defaultPhoneNumbers.length === 0 && runtimePhoneNumbers.length === 0) {
+          <span class="runtime-empty">Sin números</span>
+        }
+      </div>
+    </div>
+
+    <div class="runtime-chip-group">
+      <span class="runtime-group-label">Servicios</span>
+      <div class="runtime-chips">
+        @for (serviceNumber of defaultServiceNumbers; track serviceNumber) {
+          <span class="runtime-chip default">{{ serviceNumber }}</span>
+        }
+        @for (serviceNumber of runtimeServiceNumbers; track serviceNumber) {
+          <button type="button" class="runtime-chip removable" (click)="removeServiceNumber.emit(serviceNumber)">
+            <span>{{ serviceNumber }}</span>
+            <span class="chip-remove">×</span>
+          </button>
+        }
+        @if (defaultServiceNumbers.length === 0 && runtimeServiceNumbers.length === 0) {
+          <span class="runtime-empty">Sin números</span>
+        }
+      </div>
+    </div>
+  </section>
+}

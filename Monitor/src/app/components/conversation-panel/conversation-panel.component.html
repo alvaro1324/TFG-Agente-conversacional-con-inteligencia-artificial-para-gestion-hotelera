@@ -1,0 +1,82 @@
+<section class="panel live-panel" [class.raw-open]="selectedRawDetail">
+  <div class="live-panel-header">
+    <div class="live-heading">
+      <span class="panel-kicker">Live conversation</span>
+      <div class="live-meta">
+        <span class="status-badge" [class.waiting]="conversationViewState === 'idle'" [class.mock]="conversationViewState === 'mock'">
+          {{ statusLabel }}
+        </span>
+        <span class="meta-pill">{{ customerPhone }}</span>
+        <span class="meta-pill">{{ serviceName }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-body">
+    <div #chatThread class="chat-thread" [class.is-empty]="conversation.length === 0">
+      @if (conversation.length === 0) {
+        <article class="empty-state">
+          <div class="empty-state-visual" aria-hidden="true">
+            <span class="empty-state-ripple empty-state-ripple--one"></span>
+            <span class="empty-state-ripple empty-state-ripple--two"></span>
+            <span class="empty-state-ripple empty-state-ripple--three"></span>
+            <span class="empty-state-avatar">
+              <img src="ai_icon.svg" alt="Agente IA" />
+            </span>
+          </div>
+          <strong>Esperando iniciar una conversación</strong>
+          <p>Los mensajes aparecerán automáticamente en cuanto comience una llamada válida.</p>
+        </article>
+      }
+
+      @for (message of conversation; track message.id) {
+        @if (message.role === 'system') {
+          <article
+            class="system-message"
+            [class.action]="getSystemVariant(message) === 'action'"
+            [class.call]="getSystemVariant(message) === 'call'"
+            [class.selected]="selectedMessageId === message.id"
+            (click)="selectMessage.emit(message.id)"
+          >
+            <span class="system-chip">{{ message.text }}</span>
+          </article>
+        } @else {
+          <article
+            class="message"
+            [class.assistant]="message.role === 'assistant'"
+            [class.selected]="selectedMessageId === message.id"
+            (click)="selectMessage.emit(message.id)"
+          >
+            <div class="message-avatar" [class.agent-avatar]="message.role === 'assistant'">
+              @if (message.role === 'assistant') {
+                <img src="ai_icon.svg" alt="Agente IA" />
+              } @else {
+                <span>CL</span>
+              }
+            </div>
+            <div class="message-card">
+              <div class="message-topline">
+                <strong>{{ message.author }}</strong>
+                <span>{{ message.time }}</span>
+              </div>
+              <p>{{ message.text }}</p>
+            </div>
+          </article>
+        }
+      }
+    </div>
+
+    @if (selectedRawDetail) {
+      <aside class="raw-drawer">
+        <div class="raw-header">
+          <h2>Payload</h2>
+          <button type="button" class="raw-close" (click)="clearSelection.emit()">X</button>
+        </div>
+
+        <div class="raw-payload">
+          <code>{{ selectedRawDetail.payload }}</code>
+        </div>
+      </aside>
+    }
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<main class="landing-shell" [class.dark-theme]="theme === 'dark'">
+    <app-layout-header [theme]="theme" [defaultPhoneNumbers]="defaultPhoneNumbers()"
+        [defaultServiceNumbers]="defaultServiceNumbers()" [runtimePhoneNumbers]="runtimePhoneNumbers()"
+        [runtimeServiceNumbers]="runtimeServiceNumbers()" [isMockConversationLoaded]="isMockConversationLoaded()" [showMock]="showMock"
+        (loadMockConversation)="loadMockConversation()" (clearConversation)="clearConversation()" (toggleTheme)="toggleTheme()"
+        (addPhoneNumber)="addPhoneNumber($event)" (addServiceNumber)="addServiceNumber($event)"
+        (removePhoneNumber)="removePhoneNumber($event)" (removeServiceNumber)="removeServiceNumber($event)"
+        (resetRuntimeFilters)="resetRuntimeFilters()" />
+
+    <section class="stage">
+        <app-conversation-panel [customerPhone]="customerPhone()" [serviceName]="serviceName()"
+            [conversationViewState]="conversationViewState()"
+            [conversation]="conversation()" [selectedMessageId]="selectedMessageId"
+            [selectedRawDetail]="selectedRawDetail" (selectMessage)="selectMessage($event)"
+            (clearSelection)="clearSelection()" />
+
+        <app-intents-sidebar [intents]="intents()" />
+    </section>
+
+    <app-layout-footer [projectTitle]="projectTitle" [author]="author" />
+</main>
